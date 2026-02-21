@@ -69,6 +69,18 @@ export CPPFLAGS="-I$APPDIR/usr/include/geany"
 export CFLAGS="$CPPFLAGS"
 export LDFLAGS="-L$APPDIR/usr/lib"
 
+
+############################################
+# Download Geany Plugins if not present
+############################################
+
+if ! ls "$REPO_ROOT"/geany-plugins-* >/dev/null 2>&1; then
+    echo "Downloading Geany Plugins 2.0..."
+    wget https://plugins.geany.org/geany-plugins/geany-plugins-2.0.tar.bz2
+    tar xf geany-plugins-2.0.tar.bz2
+fi
+
+
 ############################################
 # Detect plugin directory
 ############################################
@@ -76,7 +88,13 @@ export LDFLAGS="-L$APPDIR/usr/lib"
 PLUGIN_DIR=$(find "$REPO_ROOT" -maxdepth 1 -type d -regex ".*/geany-plugins-[0-9]+\.[0-9]+.*" | head -n 1)
 echo "Detected plugin directory: $PLUGIN_DIR"
 
+if [ ! -d "$PLUGIN_DIR" ]; then
+    echo "ERROR: Plugin directory not found!"
+    exit 1
+fi
+
 cd "$PLUGIN_DIR"
+
 
 ############################################
 # Build plugins (whitelist)
