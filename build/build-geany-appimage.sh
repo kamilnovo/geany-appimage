@@ -49,9 +49,10 @@ fi
 echo "=== Building Geany ==="
 cd "$GEANY_DIR"
 
-meson setup build --prefix=/usr
-meson compile -C build
-meson install -C build --destdir "$APPDIR"
+./configure --prefix=/usr
+make -j$(nproc)
+make install DESTDIR="$APPDIR"
+
 
 ############################################
 # Back to repo root
