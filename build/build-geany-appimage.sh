@@ -53,6 +53,10 @@ cd "$GEANY_DIR"
 make -j$(nproc)
 make install DESTDIR="$APPDIR"
 
+# Install internal headers needed by plugins
+echo "Installing internal Geany headers..."
+cp -r src/* "$APPDIR/usr/include/geany/"
+
 
 ############################################
 # Back to repo root
