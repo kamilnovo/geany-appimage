@@ -3,18 +3,20 @@
 This document explains the internal structure of the project, how the build process works, and how you can extend or customize the AppImage.
 
 ---
-
 ## 📦 AppImage Structure
 
 The build script creates the following structure:
+
+```
 Geany.AppDir/
-├── usr/
-│    ├── bin/geany
-│    ├── lib/
-│    ├── share/
-│    └── plugins/
-├── AppRun
-└── geany.desktop
+ ├── usr/
+ │    ├── bin/geany
+ │    ├── lib/
+ │    ├── share/
+ │    └── plugins/
+ ├── AppRun
+ └── geany.desktop
+```
 
 Everything inside `AppDir` becomes part of the final AppImage.
 
