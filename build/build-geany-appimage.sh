@@ -51,8 +51,7 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
 ./configure --prefix=/usr \
     --enable-colorpreview \
     --enable-treebrowser \
-    --enable-lineoperations \    
-    --enable-multiterm \
+    --enable-lineoperations \
     --enable-geanymacro \
     --enable-geanyminiscript \
     --enable-geanynumberedbookmarks \
@@ -61,11 +60,9 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
     --enable-overview \
     --enable-pretty-printer \
     --enable-projectorganizer \
-    --enable-sendmail \
     --enable-shiftcolumn \
     --enable-tableconvert \
     --enable-xmlsnippets
-
 
 make -j$(nproc)
 
