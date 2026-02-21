@@ -80,6 +80,12 @@ make -j$(nproc)
 make install DESTDIR=../$APPDIR
 cd ..
 
+echo "=== Installing Geany color schemes ==="
+wget https://github.com/geany/geany-themes/archive/refs/heads/master.zip -O geany-themes.zip
+unzip geany-themes.zip
+mkdir -p $APPDIR/usr/share/geany/colorschemes
+cp geany-themes-master/colorschemes/*.conf $APPDIR/usr/share/geany/colorschemes/
+
 echo "=== Adding desktop file and icon ==="
 mkdir -p $APPDIR/usr/share/applications
 mkdir -p $APPDIR/usr/share/icons/hicolor/256x256/apps
