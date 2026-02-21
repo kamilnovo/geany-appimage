@@ -80,6 +80,28 @@ make -j$(nproc)
 make install DESTDIR=../$APPDIR
 cd ..
 
+echo "=== Generating default Geany config ==="
+
+# Spustíme Geany jednou, aby vytvořil defaultní konfiguraci
+mkdir -p $APPDIR/config
+GEANY_CONFIG_DIR="$APPDIR/config" $APPDIR/usr/bin/geany --quit 2>/dev/null || true
+
+echo "=== Applying preset theme and enabling TreeBrowser plugin ==="
+
+# Nastavíme theme Darcula
+sed -i 's/^color_scheme=.*/color_scheme=darcula.conf/' $APPDIR/config/geany.conf
+
+# Zapneme plugin TreeBrowser
+mkdir -p $APPDIR/config/plugins
+echo "[General]" > $APPDIR/config/plugins/treebrowser.conf
+echo "show_hidden=false" >> $APPDIR/config/plugins/treebrowser.conf
+echo "follow_current=false" >> $APPDIR/config/plugins/treebrowser.conf
+
+# Aktivace pluginu v geany.conf
+if ! grep -q "treebrowser" $APPDIR/config/geany.conf; then
+    sed -i 's/^active_plugins=.*/active_plugins=treebrowser.so/' $APPDIR/config/geany.conf
+fi
+
 echo "=== Installing Geany color schemes ==="
 wget https://github.com/geany/geany-themes/archive/refs/heads/master.zip -O geany-themes.zip
 unzip geany-themes.zip
