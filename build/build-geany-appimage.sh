@@ -9,7 +9,10 @@ mkdir -p "$APPDIR"
 ############################################
 
 echo "=== Building Geany ==="
-cd geany-2.0.0
+GEANY_DIR=$(find . -maxdepth 1 -type d -name "geany-*" | head -n 1)
+echo "Detected Geany directory: $GEANY_DIR"
+cd "$GEANY_DIR"
+
 
 meson setup build --prefix=/usr
 meson compile -C build
