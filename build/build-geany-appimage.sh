@@ -49,27 +49,24 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
 ./autogen.sh
 
 ./configure --prefix=/usr \
-    --enable-autoclose \
-    --enable-geanydoc \
-    --enable-geanymacro \
-    --enable-geanyminiscript \
-    --enable-geanynumberedbookmarks \   
-    --enable-git-changebar \
-    --enable-keyrecord \
+    --enable-colorpreview \
+    --enable-treebrowser \
     --enable-lineoperations \
-    --enable-lipsum \
     --enable-markdown \
     --enable-multiterm \
+    --enable-geanymacro \
+    --enable-geanyminiscript \
+    --enable-geanynumberedbookmarks \
+    --enable-git-changebar \
+    --enable-keyrecord \
     --enable-overview \
     --enable-pretty-printer \
     --enable-projectorganizer \
     --enable-sendmail \
-    --enable-shiftcolumn \    
+    --enable-shiftcolumn \
     --enable-tableconvert \
-    --enable-treebrowser \
-    --enable-vimode \
-    --enable-xmlsnippets \
-    --enable-colorpreview
+    --enable-xmlsnippets
+
 
 make -j$(nproc)
 
