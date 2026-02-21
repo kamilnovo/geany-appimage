@@ -17,7 +17,7 @@ The goal is simple:
 - Auto‑update support via AppImageUpdate
 
 ## Download
-Releases: https://github.com/USERNAME/geany-appimage/releases
+Releases: https://github.com/kamilnovo/geany-appimage/releases
 
 ## Build
 bash build/build-geany-appimage.sh
