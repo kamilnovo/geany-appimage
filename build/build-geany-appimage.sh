@@ -50,8 +50,6 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
 
 ./configure --prefix=/usr \
     --enable-autoclose \
-    --enable-codenav \
-    --enable-debugger \
     --enable-geanydoc \
     --enable-geanymacro \
     --enable-geanyminiscript \
