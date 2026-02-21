@@ -60,8 +60,6 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
     --enable-geanymacro \
     --enable-geanyminiscript \
     --enable-geanynumberedbookmarks \   
-    --enable-geanyprj \
-    --enable-geanyvc \
     --enable-git-changebar \
     --enable-keyrecord \
     --enable-lineoperations \
