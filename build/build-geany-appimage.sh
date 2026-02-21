@@ -59,8 +59,7 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
     --enable-geanyinsertnum \
     --enable-geanymacro \
     --enable-geanyminiscript \
-    --enable-geanynumberedbookmarks \
-    --enable-geanypg \
+    --enable-geanynumberedbookmarks \   
     --enable-geanyprj \
     --enable-geanyvc \
     --enable-git-changebar \
@@ -70,12 +69,10 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
     --enable-markdown \
     --enable-multiterm \
     --enable-overview \
-    --enable-pohelper \
     --enable-pretty-printer \
     --enable-projectorganizer \
     --enable-sendmail \
-    --enable-shiftcolumn \
-    --enable-spellcheck \
+    --enable-shiftcolumn \    
     --enable-tableconvert \
     --enable-treebrowser \
     --enable-vimode \
