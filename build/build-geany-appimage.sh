@@ -28,6 +28,10 @@ fi
 
 GEANY_DIR=$(find . -maxdepth 1 -type d -name "geany-*" | head -n 1)
 echo "Detected Geany directory: $GEANY_DIR"
+
+# Odstraníme prefix "./" aby cd fungovalo v každém prostředí
+GEANY_DIR="${GEANY_DIR#./}"
+
 cd "$GEANY_DIR"
 
 
