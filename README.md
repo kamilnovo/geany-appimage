@@ -1,6 +1,6 @@
-# Geany Portable Pro Edition (AppImage)
+# Geany Portable Enhanced (AppImage)
 
-This project provides a fully portable, enhanced version of **Geany** packaged as an **AppImage**.  
+This project provides a fully portable, improved version of **Geany** packaged as an **AppImage**.  
 It includes a curated set of plugins, a modern dark theme, improved defaults, and a complete portable configuration that travels with the AppImage.
 
 The goal is simple:  
@@ -17,7 +17,7 @@ Geany.AppDir/config/
 Code
 
 
-This means the AppImage can be run from USB drives, external disks, cloud folders, or any Linux system without leaving traces behind.
+The AppImage can be run from USB drives, external disks, cloud folders, or any Linux system without leaving traces behind.
 
 ---
 
