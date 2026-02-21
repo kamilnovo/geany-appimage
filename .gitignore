@@ -53,3 +53,9 @@ dkms.conf
 
 # debug information files
 *.dwo
+# AppImage build artifacts
+*.AppImage
+*.AppImage.zsync
+appimagetool-x86_64.AppImage
+squashfs-root/
+Geany.AppDir/
