@@ -55,8 +55,6 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
     --enable-commander \
     --enable-debugger \
     --enable-geanydoc \
-    --enable-geanyextrasel \
-    --enable-geanyinsertnum \
     --enable-geanymacro \
     --enable-geanyminiscript \
     --enable-geanynumberedbookmarks \   
