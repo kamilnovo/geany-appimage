@@ -43,6 +43,9 @@ patch -p1 -d geany-plugins-$PLUGINS_VERSION < build/patches/colorpreview-bigger-
 echo "=== Building Plugins ==="
 cd geany-plugins-$PLUGINS_VERSION
 
+# 🔥 TADY JE KRITICKÁ OPRAVA
+export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
+
 ./autogen.sh
 
 ./configure --prefix=/usr \
