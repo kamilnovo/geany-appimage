@@ -55,14 +55,18 @@ make install DESTDIR="$APPDIR"
 
 echo "Installing internal Geany headers..."
 
-# Create correct directory structure
+# Install all internal headers from src/
+cp src/*.h "$APPDIR/usr/include/geany/"
+
+# Create tm/ directory expected by plugins
 mkdir -p "$APPDIR/usr/include/geany/tm"
 
-# Copy internal headers
-cp src/*.h "$APPDIR/usr/include/geany/"
-cp src/tm/*.h "$APPDIR/usr/include/geany/tm/"
-
-
+# Copy all tm_* headers into tm/
+for f in src/tm_*.h; do
+    if [ -f "$f" ]; then
+        cp "$f" "$APPDIR/usr/include/geany/tm/"
+    fi
+done
 
 ############################################
 # Back to repo root
