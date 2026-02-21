@@ -61,12 +61,16 @@ cp src/*.h "$APPDIR/usr/include/geany/"
 # Create tm/ directory expected by plugins
 mkdir -p "$APPDIR/usr/include/geany/tm"
 
-# Copy all tm_* headers into tm/
+# Copy all tm_* headers into BOTH locations
 for f in src/tm_*.h; do
     if [ -f "$f" ]; then
+        # Copy to root include path
+        cp "$f" "$APPDIR/usr/include/geany/"
+        # Copy to tm/ subdirectory
         cp "$f" "$APPDIR/usr/include/geany/tm/"
     fi
 done
+
 
 ############################################
 # Back to repo root
