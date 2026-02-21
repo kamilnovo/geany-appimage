@@ -6,9 +6,10 @@ set -e
 ############################################
 
 cd "$(dirname "$0")/.."
-echo "Running from repo root: $PWD"
+REPO_ROOT="$PWD"
+echo "Running from repo root: $REPO_ROOT"
 
-APPDIR="$PWD/AppDir"
+APPDIR="$REPO_ROOT/AppDir"
 mkdir -p "$APPDIR"
 
 ############################################
@@ -23,7 +24,7 @@ sudo apt-get install -y meson ninja-build pkg-config build-essential \
 # Download Geany source if not present
 ############################################
 
-if [ ! -d geany-2.0 ]; then
+if [ ! -d "$REPO_ROOT/geany-2.0" ]; then
     echo "Downloading Geany 2.0..."
     wget https://download.geany.org/geany-2.0.tar.bz2
     tar xf geany-2.0.tar.bz2
@@ -33,8 +34,7 @@ fi
 # Detect Geany directory (strict regex)
 ############################################
 
-GEANY_DIR=$(find "$PWD" -maxdepth 1 -type d -regex ".*/geany-[0-9]+\.[0-9]+.*" | head -n 1)
-
+GEANY_DIR=$(find "$REPO_ROOT" -maxdepth 1 -type d -regex ".*/geany-[0-9]+\.[0-9]+.*" | head -n 1)
 echo "Detected Geany directory: $GEANY_DIR"
 
 if [ ! -d "$GEANY_DIR" ]; then
@@ -57,7 +57,7 @@ meson install -C build --destdir "$APPDIR"
 # Back to repo root
 ############################################
 
-cd "$PWD/.."
+cd "$REPO_ROOT"
 
 ############################################
 # Prepare environment for plugins
@@ -69,13 +69,17 @@ export CFLAGS="$CPPFLAGS"
 export LDFLAGS="-L$APPDIR/usr/lib"
 
 ############################################
-# Build Geany Plugins (whitelist)
+# Detect plugin directory
 ############################################
 
-PLUGIN_DIR=$(find "$PWD" -maxdepth 1 -type d -regex ".*/geany-plugins-[0-9]+\.[0-9]+.*" | head -n 1)
+PLUGIN_DIR=$(find "$REPO_ROOT" -maxdepth 1 -type d -regex ".*/geany-plugins-[0-9]+\.[0-9]+.*" | head -n 1)
 echo "Detected plugin directory: $PLUGIN_DIR"
 
 cd "$PLUGIN_DIR"
+
+############################################
+# Build plugins (whitelist)
+############################################
 
 ./configure --prefix=/usr \
     --enable-colorpreview \
@@ -100,7 +104,7 @@ make install DESTDIR="$APPDIR"
 # Build AppImage
 ############################################
 
-cd "$PWD/.."
+cd "$REPO_ROOT"
 
 cp geany.desktop "$APPDIR"
 cp geany.png "$APPDIR"
