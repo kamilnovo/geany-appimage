@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
 
+# Move to repository root
+cd "$(dirname "$0")/.."
+
 APPDIR="$PWD/AppDir"
 mkdir -p "$APPDIR"
+
 
 ############################################
 # Install build dependencies
