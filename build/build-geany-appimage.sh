@@ -10,6 +10,14 @@ mkdir -p "$APPDIR"
 echo "Running from: $PWD"
 
 ############################################
+# Install build dependencies
+############################################
+
+sudo apt-get update
+sudo apt-get install -y meson ninja-build pkg-config build-essential \
+    libgtk-3-dev libglib2.0-dev libvte-2.91-dev
+
+############################################
 # Download Geany
 ############################################
 
@@ -19,13 +27,14 @@ if [ ! -d geany-2.0 ]; then
 fi
 
 ############################################
-# Detect Geany directory (absolute path)
+# Detect Geany directory (correct regex)
 ############################################
 
-GEANY_DIR=$(find "$PWD" -maxdepth 1 -type d -name "geany-*" | head -n 1)
+GEANY_DIR=$(find "$PWD" -maxdepth 1 -type d -regex ".*/geany-[0-9.]*" | head -n 1)
 echo "Detected Geany directory: $GEANY_DIR"
 
 cd "$GEANY_DIR"
+
 
 ############################################
 # Build Geany
