@@ -1,7 +1,7 @@
 # Geany Portable Enhanced (AppImage)
-![Build](https://github.com/USERNAME/geany-appimage/actions/workflows/build-appimage.yml/badge.svg)
-![Latest Release](https://img.shields.io/github/v/release/USERNAME/geany-appimage)
-![Downloads](https://img.shields.io/github/downloads/USERNAME/geany-appimage/total)
+![Build](https://github.com/kamilnovo/geany-appimage/actions/workflows/build-appimage.yml/badge.svg)
+![Latest Release](https://img.shields.io/github/v/release/kamilnovo/geany-appimage)
+![Downloads](https://img.shields.io/github/downloads/kamilnovo/geany-appimage/total)
 
 This project provides a fully portable, improved version of **Geany** packaged as an **AppImage**.  
 It includes a curated set of plugins, a modern dark theme, improved defaults, and a complete portable configuration that travels with the AppImage.
