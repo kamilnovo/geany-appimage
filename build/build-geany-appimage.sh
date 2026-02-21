@@ -93,6 +93,23 @@ mkdir -p $APPDIR/usr/share/icons/hicolor/256x256/apps
 cp geany-$GEANY_VERSION/data/geany.desktop $APPDIR/usr/share/applications/
 cp geany-$GEANY_VERSION/data/geany.png $APPDIR/usr/share/icons/hicolor/256x256/apps/
 
+echo "=== Creating AppRun (portable mode) ==="
+
+cat > $APPDIR/AppRun << 'EOF'
+#!/bin/bash
+
+# Enable portable configuration
+export GEANY_CONFIG_DIR="$APPDIR/config"
+mkdir -p "$GEANY_CONFIG_DIR"
+
+# Run Geany
+exec "$APPDIR/usr/bin/geany" "$@"
+EOF
+
+chmod +x $APPDIR/AppRun
+
+
+
 echo "=== Downloading AppImage tool ==="
 wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
 chmod +x appimagetool-x86_64.AppImage
