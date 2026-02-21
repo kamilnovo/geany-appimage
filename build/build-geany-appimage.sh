@@ -49,10 +49,8 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
 ./autogen.sh
 
 ./configure --prefix=/usr \
-    --enable-addons \
     --enable-autoclose \
     --enable-codenav \
-    --enable-commander \
     --enable-debugger \
     --enable-geanydoc \
     --enable-geanymacro \
