@@ -9,7 +9,7 @@ mkdir -p "$APPDIR"
 ############################################
 
 echo "=== Building Geany ==="
-cd geany-2.0
+cd geany-2.0.0
 
 meson setup build --prefix=/usr
 meson compile -C build
