@@ -53,9 +53,15 @@ cd "$GEANY_DIR"
 make -j$(nproc)
 make install DESTDIR="$APPDIR"
 
-# Install internal headers needed by plugins
 echo "Installing internal Geany headers..."
-cp -r src/* "$APPDIR/usr/include/geany/"
+
+# Create correct directory structure
+mkdir -p "$APPDIR/usr/include/geany/tm"
+
+# Copy internal headers
+cp src/*.h "$APPDIR/usr/include/geany/"
+cp src/tm/*.h "$APPDIR/usr/include/geany/tm/"
+
 
 
 ############################################
