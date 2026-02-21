@@ -23,6 +23,15 @@ if [ ! -d geany-2.0 ]; then
 fi
 
 ############################################
+# Detect Geany directory
+############################################
+
+GEANY_DIR=$(find . -maxdepth 1 -type d -name "geany-*" | head -n 1)
+echo "Detected Geany directory: $GEANY_DIR"
+cd "$GEANY_DIR"
+
+
+############################################
 # Build Geany
 ############################################
 
