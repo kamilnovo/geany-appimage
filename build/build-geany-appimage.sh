@@ -51,8 +51,7 @@ export PKG_CONFIG_PATH="$APPDIR/usr/lib/pkgconfig"
 ./configure --prefix=/usr \
     --enable-colorpreview \
     --enable-treebrowser \
-    --enable-lineoperations \
-    --enable-markdown \
+    --enable-lineoperations \    
     --enable-multiterm \
     --enable-geanymacro \
     --enable-geanyminiscript \
