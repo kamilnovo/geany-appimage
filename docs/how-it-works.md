@@ -23,8 +23,8 @@ Everything inside `AppDir` becomes part of the final AppImage.
 
 The AppImage contains:
 
-- Geany 2.0 (compiled from source)
-- geany-plugins 2.0 (compiled from source)
+- Geany 2.1 (compiled from source)
+- geany-plugins 2.1 (compiled from source)
 - Color Preview plugin (with enlarged color squares)
 - Icons, desktop file, and all required runtime libraries
 
@@ -34,16 +34,16 @@ The AppImage contains:
 
 The build script performs these steps:
 
-1. Install build dependencies  
-2. Download Geany source  
-3. Download geany-plugins source  
-4. Create AppDir  
-5. Compile Geany  
-6. Apply patches  
-7. Compile plugins  
-8. Install everything into AppDir  
-9. Download `appimagetool`  
-10. Build the final AppImage  
+1.  Install build dependencies
+2.  Download Geany source
+3.  Download geany-plugins source
+4.  Create AppDir
+5.  Compile Geany
+6.  Apply patches
+7.  Compile plugins
+8.  Install everything into AppDir
+9.  Download `appimagetool`
+10. Build the final AppImage
 
 The result is a fully self-contained binary.
 
@@ -59,8 +59,8 @@ build/patches/colorpreview-bigger-icons.patch
 
 It modifies the plugin to use larger color preview squares:
 
-- Default: 8×8 px  
-- Patched: 16×16 px  
+- Default: 8×8 px
+- Patched: 16×16 px
 
 You can adjust the size by editing the patch.
 
@@ -90,14 +90,14 @@ To enable all plugins:
 
 You can bundle a GTK theme inside the AppImage:
 
-1. Create directory:
+1.  Create directory:
 
 ```
 Geany.AppDir/usr/share/themes/
 ```
 
-2. Copy your theme folder inside  
-3. Set environment variable in `AppRun`:
+2.  Copy your theme folder inside
+3.  Set environment variable in `AppRun`:
 
 ```
 export GTK_THEME=YourThemeName
@@ -109,13 +109,13 @@ export GTK_THEME=YourThemeName
 
 To make Geany portable:
 
-1. Create directory:
+1.  Create directory:
 
 ```
 Geany.AppDir/config/
 ```
 
-2. Add to `AppRun`:
+2.  Add to `AppRun`:
 
 ```
 export GEANY_CONFIG_DIR="$APPDIR/config"
@@ -130,7 +130,7 @@ This forces Geany to store settings inside the AppImage directory.
 Extract the AppImage for inspection:
 
 ```
-./Geany-2.0-x86_64.AppImage --appimage-extract
+./geany.AppImage --appimage-extract
 ```
 
 This creates a directory:
@@ -143,18 +143,18 @@ squashfs-root/
 
 ## 🛠 Troubleshooting
 
-### Build fails on missing dependencies  
+### Build fails on missing dependencies
 Install them manually or extend the dependency list in the script.
 
-### Patch fails  
-The script continues even if the patch does not apply.  
+### Patch fails
+The script continues even if the patch does not apply.
 Check plugin version compatibility.
 
-### AppImage does not launch  
+### AppImage does not launch
 Run:
 
 ```
-./Geany-2.0-x86_64.AppImage --appimage-debug
+./geany.AppImage --appimage-debug
 ```
 
 ---
@@ -163,7 +163,7 @@ Run:
 
 Feel free to submit pull requests with:
 
-- new patches  
-- new plugins  
-- improvements to the build script  
-- CI automation (GitHub Actions)  
+- new patches
+- new plugins
+- improvements to the build script
+- CI automation (GitHub Actions)
