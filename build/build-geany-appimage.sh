@@ -14,12 +14,31 @@ APPDIR="$REPO_ROOT/Geany.AppDir"
 
 # Clean up previous build artifacts
 rm -rf "$APPDIR"
-rm -f "$REPO_ROOT/geany.AppImage"
+rm -f "$REPO_ROOT/Geany-x86_64.AppImage"
 rm -f "$REPO_ROOT/geany.conf"
 rm -rf "$REPO_ROOT/venv_appimage_builder"
 
 mkdir -p "$APPDIR"
 mkdir -p "$APPDIR/usr/lib"
+
+############################################
+# Tool Availability Check
+############################################
+
+echo "=== Checking Tools ==-"
+# Download linuxdeploy if missing
+if [ ! -f "$REPO_ROOT/linuxdeploy" ]; then
+    echo "Downloading linuxdeploy..."
+    wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -O "$REPO_ROOT/linuxdeploy"
+    chmod +x "$REPO_ROOT/linuxdeploy"
+fi
+
+# Download appimagetool if missing
+if [ ! -f "$REPO_ROOT/appimagetool" ]; then
+    echo "Downloading appimagetool..."
+    wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O "$REPO_ROOT/appimagetool"
+    chmod +x "$REPO_ROOT/appimagetool"
+fi
 
 ############################################
 # Build Geany 2.1
@@ -29,7 +48,7 @@ echo "=== Building Geany 2.1 ==-"
 cd "$REPO_ROOT"
 
 if [ ! -f geany-2.1.tar.bz2 ]; then
-    wget https://download.geany.org/geany-2.1.tar.bz2
+    wget -q https://download.geany.org/geany-2.1.tar.bz2
 fi
 
 rm -rf geany-2.1
@@ -120,7 +139,7 @@ python3 patch_localization.py "$GEANY_DIR/src/libmain.c"
     ./configure --prefix=/usr --enable-binreloc --libdir=/usr/lib
     make -j$(nproc)
     
-    # Create geany.desktop manually if make failed
+    # Create geany.desktop manually
     cat << EOF_D > geany.desktop
 [Desktop Entry]
 Version=1.0
@@ -138,7 +157,7 @@ EOF_D
 # Build Geany Plugins 2.1
 cd "$REPO_ROOT"
 if [ ! -f geany-plugins-2.1.tar.bz2 ]; then
-    wget https://plugins.geany.org/geany-plugins/geany-plugins-2.1.tar.bz2
+    wget -q https://plugins.geany.org/geany-plugins/geany-plugins-2.1.tar.bz2
 fi
 rm -rf geany-plugins-2.1
 tar xf geany-plugins-2.1.tar.bz2
@@ -189,16 +208,31 @@ rm -rf "$APPDIR/home"
 # Final Assembly
 cd "$REPO_ROOT"
 mkdir -p "$APPDIR/usr/lib/x86_64-linux-gnu"
-cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 "$APPDIR/usr/lib/x86_64-linux-gnu/"
+cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 "$APPDIR/usr/lib/x86_64-linux-gnu/" || true
+
+# Robust GIO Module Copy
 mkdir -p "$APPDIR/usr/lib/gio/modules"
-cp -a /usr/lib/x86_64-linux-gnu/gio/modules/libgiognutls.so "$APPDIR/usr/lib/gio/modules/" || true
-cp -a /usr/lib/x86_64-linux-gnu/gio/modules/libdconfsettings.so "$APPDIR/usr/lib/gio/modules/" || true
-cp /usr/bin/gio-querymodules "$APPDIR/usr/bin/"
-(
-    export LD_LIBRARY_PATH="$APPDIR/usr/lib:$LD_LIBRARY_PATH"
-    export GIO_MODULE_DIR="$APPDIR/usr/lib/gio/modules"
-    "$APPDIR/usr/bin/gio-querymodules" "$APPDIR/usr/lib/gio/modules"
+GIO_MOD_PATHS=(
+    "/usr/lib/x86_64-linux-gnu/gio/modules"
+    "/usr/lib64/gio/modules"
+    "/usr/lib/gio/modules"
 )
+for mod_path in "${GIO_MOD_PATHS[@]}"; do
+    if [ -d "$mod_path" ]; then
+        cp -a "$mod_path"/libgiognutls.so "$APPDIR/usr/lib/gio/modules/" 2>/dev/null || true
+        cp -a "$mod_path"/libdconfsettings.so "$APPDIR/usr/lib/gio/modules/" 2>/dev/null || true
+    fi
+done
+
+if [ -f /usr/bin/gio-querymodules ]; then
+    cp /usr/bin/gio-querymodules "$APPDIR/usr/bin/"
+    (
+        export LD_LIBRARY_PATH="$APPDIR/usr/lib:$LD_LIBRARY_PATH"
+        export GIO_MODULE_DIR="$APPDIR/usr/lib/gio/modules"
+        "$APPDIR/usr/bin/gio-querymodules" "$APPDIR/usr/lib/gio/modules"
+    )
+fi
+
 patchelf --set-rpath "\$ORIGIN/../lib" "$APPDIR/usr/bin/geany"
 for plugin_so in "$APPDIR/usr/lib/geany"/*.so; do
     if [ -f "$plugin_so" ]; then
@@ -219,7 +253,7 @@ export GIO_MODULE_DIR="$HERE/usr/lib/gio/modules"
 export GEANY_PLUGIN_PATH="$HERE/usr/lib/geany"
 export GEANY_DATA_DIR="$HERE/usr/share/geany"
 export TEXTDOMAINDIR="$HERE/usr/share/locale"
-# Try to find current CS locale
+# Force Czech if translation exists
 if [ -d "$HERE/usr/share/locale/cs" ]; then
     export LANG="cs_CZ.UTF-8"
     export LANGUAGE="cs_CZ:cs"
