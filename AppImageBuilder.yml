@@ -1,0 +1,36 @@
+version: 1
+AppDir:
+  path: /home/mbarina/dev/geany-appimage/Geany.AppDir
+  app_info:
+    id: org.geany.Geany
+    name: Geany
+    icon: geany
+    version: '2.1'
+    exec: usr/bin/geany
+    exec_args: ''
+  files:
+    include: []
+  runtime:
+    env:
+      PATH: /usr/bin:/home/mbarina/dev/geany-appimage/venv_appimage_builder/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin
+      LD_LIBRARY_PATH: '/usr/lib:'
+      GEANY_CONFIG_DIR: config
+  apt:
+    arch: amd64
+    sources:
+    - sourceline: deb [arch=amd64] http://deb.debian.org/debian/ bookworm main
+      key_url: https://ftp-master.debian.org/keys/archive-key-12.asc
+    include:
+    - libc6
+    - libglib2.0-0
+    - libgtk-3-0
+    - libpango-1.0-0
+    - libatk1.0-0
+    - libcairo2
+    - libgdk-pixbuf2.0-0
+    - libfontconfig1
+    - libfreetype6
+    - libx11-6
+AppImage:
+  arch: x86_64
+  file_name: geany.AppImage
