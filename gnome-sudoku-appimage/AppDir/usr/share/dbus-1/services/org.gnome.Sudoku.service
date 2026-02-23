@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.gnome.Sudoku
-Exec=/usr/bin/gnome-sudoku --gapplication-service

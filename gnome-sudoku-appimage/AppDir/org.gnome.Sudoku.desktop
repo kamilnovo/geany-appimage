@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Sudoku
-Exec=gnome-sudoku
-Icon=org.gnome.Sudoku
-Terminal=false
-Type=Application
-Categories=GNOME;GTK;Game;StrategyGame;
-X-AppImage-Version=44.0
